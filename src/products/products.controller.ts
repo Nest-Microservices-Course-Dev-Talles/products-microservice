@@ -27,6 +27,7 @@ export class ProductsController {
   // @Get(':id')
   @MessagePattern({ cmd: 'find_one_product' })
   findOne(@Payload('id', ParseIntPipe) id: number) {
+    console.log(`lllega id a microservices ${id}`);
     return this.productsService.findOne(id);
   }
 
@@ -50,5 +51,11 @@ export class ProductsController {
   @MessagePattern({ cmd: 'delete_product' })
   remove(@Payload('id', ParseIntPipe) id: number) {
     return this.productsService.remove(id);
+  }
+
+  @MessagePattern({ cmd: 'validate_products' })
+  validateProducts(ids: number[]) {
+    console.log('ids', ids);
+    return this.productsService.validateProducts(ids);
   }
 }
